@@ -1,0 +1,19 @@
+[general]
+import = ["onelight.toml"]
+
+[window]
+dimensions.columns = 80
+dimensions.lines = 20
+padding.x = 4
+padding.y = 4
+decorations = "None"
+
+[font]
+normal.family = "Maple Mono"
+italic.family = "Maple Mono"
+bold_italic.family = "Maple Mono"
+size = 11.25
+
+[cursor]
+style.shape = "Block"
+thickness = 0.3

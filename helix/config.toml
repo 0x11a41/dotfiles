@@ -1,6 +1,6 @@
-theme = "jetbrains_dark"
+# theme = "jetbrains_dark"
 # theme = "gruvbox-material"
-# theme = "kaolin-light"
+theme = "kaolin-light"
 
 [editor]
 line-number = "relative"

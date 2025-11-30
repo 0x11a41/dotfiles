@@ -58,6 +58,7 @@
     };
   };
 
+  programs.kdeconnect.enable = true;
   users.users.hk = {
     isNormalUser = true;
     description = "Harikrishna Mohan";
@@ -133,8 +134,6 @@
     alacritty
     nautilus
     hyprls
-    intel-vaapi-driver
-    intel-media-driver
   ];
 
   programs.dconf.profiles.user.databases = [

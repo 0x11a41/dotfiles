@@ -57,6 +57,7 @@
       firefox
       tldr
       nautilus
+      nautilus-python
       helix
       bat
       hyprls
@@ -79,11 +80,13 @@
     adwaita-icon-theme
     hyprpolkitagent
     hyprpaper
+    nixd
+    nixdoc
   ];
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     maple-mono.NF
     adwaita-fonts
     nerd-fonts."m+"
@@ -104,7 +107,8 @@
   nixpkgs.config.allowUnfree = true;
   services.xserver.enable = false;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  # nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

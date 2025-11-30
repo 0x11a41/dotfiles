@@ -27,13 +27,10 @@
   };
 
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  programs.fish.enable = true;
+  services.libinput.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -41,10 +38,17 @@
     wireplumber.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  programs.fish.enable = true;
+  programs.git = {
+    enable = true;
+    config = {
+      init.defaultBranch = "main";
+      user.name = "Harikrishna Mohan";
+      user.email = "harikrishnamohan@proton.me";
+    };
+  };
+
   users.users.hk = {
     isNormalUser = true;
     description = "Harikrishna Mohan";

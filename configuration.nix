@@ -105,7 +105,6 @@
       pureref
       gnome-calculator
       gnome-calendar
-      gcolor3
     ];
   };
 
@@ -136,15 +135,6 @@
   ##################
 
   # @HYPRLAND
-  services.displayManager.ly.enable = true;
-  services.upower.enable = true;
-  services.power-profiles-daemon.enable = true;
-  services.hypridle.enable = true;
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-
   environment.systemPackages = with pkgs; [
     wl-clipboard
     wlsunset
@@ -170,6 +160,14 @@
     blueman
   ];
 
+  services.displayManager.ly.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.hypridle.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   programs.dconf.profiles.user.databases = [
     {
@@ -182,9 +180,11 @@
       };
     }
   ];
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.GIO_EXTRA_MODULES = [ "${config.services.gvfs.package}/lib/gio/modules" ]; 
   services.gvfs.enable = true;
+
 
   
   # don't change this

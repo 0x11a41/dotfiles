@@ -148,7 +148,6 @@
     alacritty
     nautilus
     hyprls
-    hyprpicker
     fuzzel
     hyprlock
     mako
@@ -159,6 +158,7 @@
     cliphist
     blueman
     hyprshot
+    hyprland-qtutils
   ];
 
   services.displayManager.ly.enable = true;

@@ -40,8 +40,8 @@ base = "#FF6B6B"               # Soft Red
 weak = "#F4A460"               # Sandy Brown
 
 [appearance.background_color]
-base = "#313131"               # panel color
-weak = "#494949"               # Lighter Grey
+base = "#333333"               # panel color
+weak = "#4b4b4b"               # Lighter Grey
 strong = "#6272A4"             # Muted Purple/Blue
 
 [appearance.secondary_color]

@@ -49,7 +49,7 @@
 
     hardware.bluetooth = {
     enable = true;
-    powerOnBoot = true;
+    powerOnBoot = false;
     settings = {
       General = {
         Experimental = true;
@@ -57,7 +57,7 @@
         ControllerMode = "bredr";
       };
       Policy = {
-        AutoEnable = true;
+        AutoEnable = false;
       };
     };
   };

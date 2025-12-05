@@ -26,7 +26,6 @@ wifi_more_cmd = "nm-connection-editor"
 vpn_more_cmd = "nm-connection-editor"
 bluetooth_more_cmd = "blueman-manager"
 remove_airplane_btn = true
-suspend_cmd = "systemctl hibernate"
 
 [appearance]
 style = "Islands"

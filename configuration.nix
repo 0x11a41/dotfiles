@@ -8,6 +8,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "i8042.nokbd" ];
+  services.logind.settings.Login = {
+    HandlePowerKey = "hibernate";
+  };
 
   networking.networkmanager.enable = true;
   networking.hostName = "nixos";

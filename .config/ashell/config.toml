@@ -26,6 +26,7 @@ wifi_more_cmd = "nm-connection-editor"
 vpn_more_cmd = "nm-connection-editor"
 bluetooth_more_cmd = "blueman-manager"
 remove_airplane_btn = true
+suspend_cmd = "systemctl hibernate"
 
 [appearance]
 style = "Islands"
@@ -40,9 +41,9 @@ base = "#FF6B6B"               # Soft Red
 weak = "#F4A460"               # Sandy Brown
 
 [appearance.background_color]
-base = "#333333"               # panel color
-weak = "#4b4b4b"               # Lighter Grey
+base = "#3d3d3d"               # panel color
+weak = "#4f4f4f"               # Lighter Grey
 strong = "#6272A4"             # Muted Purple/Blue
 
 [appearance.secondary_color]
-base = "#0a0a0a"               # Dark Grey
+base = "#1a1a1a"               # Dark Grey

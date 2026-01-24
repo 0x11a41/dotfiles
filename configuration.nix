@@ -140,7 +140,7 @@
       papers # document viewer
       snapshot # camera app
       decibels # audio player
-      resources # like btop
+      mission-center
       showtime # video player
       gnome-calculator
       gnome-calendar
@@ -151,6 +151,7 @@
       telegram-desktop
       gimp
       obsidian
+      marktext
       pureref
       bash-language-server
       pastel
@@ -168,6 +169,7 @@
       kdePackages.kdenlive
       godot
       wpsoffice
+      android-studio
     ];
   };
 
@@ -244,6 +246,9 @@
     libnotify
     slurp
     glib
+    zlib
+    gzip
+    unzip
   ];
 
   services.displayManager.ly.enable = true;

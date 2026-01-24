@@ -1,5 +1,4 @@
 if status is-interactive
-    export EDITOR=/usr/bin/hx
     set fish_greeting $(date)
 end
 

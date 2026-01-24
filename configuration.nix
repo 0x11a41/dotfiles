@@ -90,8 +90,11 @@
   programs.git = {
     enable = true;
     config = {
+      core.editor = "hx";
+      merge.tool = "helix";
+      mergetool.helix.cmd = "hx \"$MERGED\"";
       init.defaultBranch = "main";
-      user.name = "Harikrishna Mohan";
+      user.name = "0x11a41";
       user.email = "harikrishnamohan@proton.me";
     };
   };
@@ -275,10 +278,19 @@
 
   services.gvfs.enable = true;
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.GIO_EXTRA_MODULES = [ "${config.services.gvfs.package}/lib/gio/modules" ]; 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "*";
+  };
 
-  
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    GIO_EXTRA_MODULES = [ "${config.services.gvfs.package}/lib/gio/modules" ];
+    EDITOR = "hx";
+    VISUAL = "hx";
+  };
+
   # don't change this
   system.stateVersion = "25.05";
 }

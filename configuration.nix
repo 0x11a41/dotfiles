@@ -142,19 +142,17 @@
       baobab # disk usage analyzer
       papers # document viewer
       snapshot # camera app
-      decibels # audio player
       mission-center
-      showtime # video player
       gnome-calculator
       gnome-calendar
       tree
       fastfetch
       firefox
+      btop
       tldr
       telegram-desktop
       gimp
       obsidian
-      marktext
       pureref
       bash-language-server
       pastel
@@ -168,18 +166,18 @@
       pixelorama
       gnome-characters
       audacity
-      discord
       kdePackages.kdenlive
       godot
       wpsoffice
       android-studio
       net-tools
       vlc
+      yazi
     ];
   };
 
   documentation.dev.enable = true;
-  documentation.man.generateCaches = true;
+  documentation.man.cache.enable = true;
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -226,7 +224,6 @@
     brightnessctl
     adwaita-icon-theme
     hyprpolkitagent
-    hyprpaper
     gparted
     nixd
     nixdoc
@@ -255,6 +252,7 @@
     zlib
     gzip
     unzip
+    swww
   ];
 
   services.displayManager.ly.enable = true;

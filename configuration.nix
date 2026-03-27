@@ -173,6 +173,8 @@
       net-tools
       vlc
       yazi
+      presenterm
+      kitty
     ];
   };
 
@@ -201,10 +203,20 @@
   };
   nix.settings.auto-optimise-store = true;
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
+
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 80 443 6210 ];
-    allowedUDPPorts = [ 5353 ];
     allowedUDPPortRanges = [
       { from = 4000; to = 4007; }
       { from = 8000; to = 8010; }

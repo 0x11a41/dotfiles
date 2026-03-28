@@ -174,7 +174,6 @@
       vlc
       yazi
       presenterm
-      kitty
     ];
   };
 
@@ -239,7 +238,6 @@
     gparted
     nixd
     nixdoc
-    alacritty
     nautilus
     hyprls
     fuzzel
@@ -265,6 +263,9 @@
     gzip
     unzip
     swww
+    kitty
+    zoxide
+    fzf
   ];
 
   services.displayManager.ly.enable = true;

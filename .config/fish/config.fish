@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 direnv hook fish | source
+zoxide init fish | source
 
 alias trash="gio trash"
 alias gedit="gnome-text-editor"

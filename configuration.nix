@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -169,7 +169,6 @@
       kdePackages.kdenlive
       godot
       wpsoffice
-      android-studio
       net-tools
       vlc
       yazi
@@ -189,7 +188,6 @@
     corefonts
     font-awesome
   ];
-
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

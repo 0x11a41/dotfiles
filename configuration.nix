@@ -16,7 +16,7 @@
   networking.hostName = "nixos";
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = [ "all" ];
+  # i18n.supportedLocales = [ "all" ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
@@ -29,12 +29,11 @@
       libvdpau-va-gl
     ];
   };
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
   services.xserver.videoDrivers = ["nvidia"];
   ## f*** nvidia things
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = true;
     open = false;
     nvidiaSettings = true;
@@ -47,6 +46,13 @@
         enableOffloadCmd = true;
       };
     };
+  };
+  environment.sessionVariables = { 
+    LIBVA_DRIVER_NAME = "iHD"; 
+    AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    NIXOS_OZONE_HWP_DEFAULT = "1"; 
   };
 
   services.printing.enable = true;
@@ -76,16 +82,15 @@
     };
   };
 
-  programs.command-not-found.enable = true;
   programs.fish = {
     enable = true;
     generateCompletions = true;
     shellAbbrs = {
-      ns = "nix-shell";
       ta = "tmux a";
     };
-
   };
+
+  programs.command-not-found.enable = false;
 
   programs.git = {
     enable = true;
@@ -98,8 +103,6 @@
       user.email = "harikrishnamohan@proton.me";
     };
   };
-
-  programs.localsend.enable = true;
 
   programs.tmux = {
     enable = true;
@@ -131,10 +134,13 @@
     '';    
   };
 
+  virtualisation.virtualbox.host.enable = true;
+
   users.users.hk = {
     isNormalUser = true;
+    hashedPassword = "$y$j9T$D.Gc4dBkIlpxoabvNsemz/$JrIQVLeg6ZtXgxAMbVTFPMa8IvQ3UuEIMoWNWMFJ3UD";
     description = "Harikrishna Mohan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "vboxusers" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       gnome-text-editor
@@ -142,37 +148,25 @@
       baobab # disk usage analyzer
       papers # document viewer
       snapshot # camera app
-      mission-center
       gnome-calculator
       gnome-calendar
-      tree
-      fastfetch
-      firefox
-      btop
-      tldr
       telegram-desktop
       gimp
       obsidian
       pureref
-      bash-language-server
-      pastel
-      ffmpeg-full
-      man-pages
-      libwacom
-      xournalpp
       rnote
-      man-pages-posix
-      direnv
+      # obs-studio
+      localsend
       pixelorama
-      gnome-characters
       audacity
       kdePackages.kdenlive
-      godot
-      wpsoffice
-      net-tools
+      libreoffice
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       vlc
-      yazi
-      presenterm
+      gparted
+      nautilus
+      nautilus-open-any-terminal
+      pavucontrol
     ];
   };
 
@@ -195,8 +189,8 @@
   # garbage collection
   nix.gc = {
     automatic = true;    
-    dates = "weekly";
-    options = "--delete-older-than 10d";
+    dates = "monthly";
+    options = "--delete-older-than 20d";
   };
   nix.settings.auto-optimise-store = true;
 
@@ -219,12 +213,7 @@
       { from = 8000; to = 8010; }
     ];
   };
-  
-  ##################
-  ## ENVIRONMENTS ##
-  ##################
 
-  # @HYPRLAND
   environment.systemPackages = with pkgs; [
     helix
     wl-clipboard
@@ -233,17 +222,15 @@
     brightnessctl
     adwaita-icon-theme
     hyprpolkitagent
-    gparted
     nixd
     nixdoc
-    nautilus
     hyprls
     fuzzel
-    pavucontrol
     hyprlock
     swaynotificationcenter
     ashell
     upower
+    fastfetch
     power-profiles-daemon
     networkmanagerapplet
     cliphist
@@ -253,17 +240,48 @@
     rose-pine-hyprcursor
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
-    wl-screenrec
+    wf-recorder
     libnotify
     slurp
     glib
     zlib
     gzip
     unzip
-    swww
+    awww
     kitty
     zoxide
     fzf
+    tree
+    btop
+    tldr
+    pastel
+    ffmpeg-full
+    man-pages
+    man-pages-posix
+    direnv
+    net-tools
+    yazi
+    presenterm
+    vscode-css-languageserver
+    superhtml
+    vscode-json-languageserver
+    typescript
+    typescript-language-server
+    python313
+    ty
+    ruff
+    lua
+    lua-language-server
+    clang
+    gdb
+    clang-tools
+    lldb
+    pkg-config
+    wget
+    jq
+    file
+    bash-language-server
+    libwacom
   ];
 
   services.displayManager.ly.enable = true;
@@ -273,7 +291,6 @@
 
   programs.hyprland = {
     enable = true;
-    xwayland.enable = true;
   };
 
   programs.dconf.profiles.user.databases = [

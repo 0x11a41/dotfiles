@@ -37,7 +37,7 @@
     powerManagement.finegrained = true;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
     prime = {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:6:0:0";
@@ -46,13 +46,6 @@
         enableOffloadCmd = true;
       };
     };
-  };
-  environment.sessionVariables = { 
-    LIBVA_DRIVER_NAME = "iHD"; 
-    AQ_DRM_DEVICES = "/dev/dri/card0:/dev/dri/card1";
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    NIXOS_OZONE_HWP_DEFAULT = "1"; 
   };
 
   services.printing.enable = true;
@@ -153,6 +146,7 @@
       telegram-desktop
       gimp
       obsidian
+      resources
       pureref
       rnote
       # obs-studio
@@ -313,7 +307,8 @@
     config.common.default = "*";
   };
 
-  environment.sessionVariables = {
+  environment.sessionVariables = { 
+    LIBVA_DRIVER_NAME = "iHD"; # Forces VA-API video decoding on the Intel card
     NIXOS_OZONE_WL = "1";
     GIO_EXTRA_MODULES = [ "${config.services.gvfs.package}/lib/gio/modules" ];
     EDITOR = "hx";

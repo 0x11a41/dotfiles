@@ -35,7 +35,6 @@ end)
 -------------------------------
 hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
 hl.env("HYPRCURSOR_SIZE", 24)
-hl.env("AQ_DRM_DEVICES", "/dev/dri/card0:/dev/dri/card1")
 
 
 -----------------------
@@ -129,13 +128,7 @@ hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
 hl.bind("F2", hl.dsp.exec_cmd("pkill ashell || ashell"), {long_press = true})
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu | cliphist decode | wl-copy"))
 hl.bind("F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
-hl.bind("SUPER + F3", hl.dsp.exec_raw([[
-        #!/usr/bin/env bash
-        pkill fuzzel
-        APP=$(fuzzel --placeholder "Launch using discrete graphics")
-        [ -z "$APP" ] && exit 0
-        nvidia-offload $APP &
-]]))
+hl.bind("SUPER + F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder="Launch using discrete graphics"'))
 hl.bind("PRINT", hl.dsp.exec_cmd("pkill -x fuzzel || bash -c 'hyprshot -m $(echo -en \"region\nwindow\noutput\" | fuzzel --hide-prompt --dmenu) -o ~/Pictures/Screenshots/'"))
 hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("~/.config/hypr/screencast.sh"))
 
@@ -243,12 +236,8 @@ local function zoom(offset)
     hl.config({ cursor = { zoom_factor = current } })
 end
 
-hl.bind("SUPER + Z", function()
-    zoom(0.5)
-end)
-hl.bind("SUPER + X", function()
-    zoom(-0.5)
-end)
+hl.bind("SUPER + Z", function() zoom(0.5) end, {repeating = true})
+hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true})
 
 -- GLOBAL BINDINGS --
 hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))

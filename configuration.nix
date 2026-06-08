@@ -150,18 +150,23 @@
       pureref
       rnote
       # obs-studio
-      localsend
       pixelorama
       audacity
       kdePackages.kdenlive
       libreoffice
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       vlc
+      showtime
       gparted
       nautilus
       nautilus-open-any-terminal
       pavucontrol
     ];
+  };
+
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
   };
 
   documentation.dev.enable = true;
@@ -201,7 +206,7 @@
 
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 80 443 6210 ];
+    allowedTCPPorts = [ 80 443 ];
     allowedUDPPortRanges = [
       { from = 4000; to = 4007; }
       { from = 8000; to = 8010; }
@@ -211,16 +216,12 @@
   environment.systemPackages = with pkgs; [
     helix
     wl-clipboard
-    wlsunset
     playerctl
     brightnessctl
     adwaita-icon-theme
-    hyprpolkitagent
     nixd
     nixdoc
-    hyprls
     fuzzel
-    hyprlock
     swaynotificationcenter
     ashell
     upower
@@ -229,11 +230,6 @@
     networkmanagerapplet
     cliphist
     blueman
-    hyprpicker
-    hyprshot
-    rose-pine-hyprcursor
-    xdg-desktop-portal
-    xdg-desktop-portal-hyprland
     wf-recorder
     libnotify
     slurp
@@ -276,16 +272,22 @@
     file
     bash-language-server
     libwacom
+    hyprls
+    hyprsunset
+    hyprpolkitagent
+    hyprlock
+    hyprpicker
+    hyprshot
+    hyprland
+    hypridle
+    rose-pine-hyprcursor
+    xdg-desktop-portal
+    xdg-desktop-portal-hyprland
   ];
 
   services.displayManager.ly.enable = true;
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
-  services.hypridle.enable = true;
-
-  programs.hyprland = {
-    enable = true;
-  };
 
   programs.dconf.profiles.user.databases = [
     {

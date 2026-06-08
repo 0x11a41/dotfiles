@@ -20,10 +20,13 @@ hl.monitor({
 -------------------
 ---- AUTOSTART ----
 -------------------
+
 hl.on("hyprland.start", function()
-    hl.exec_cmd("wlsunset -l 9.9 -L 76.3")
-    hl.exec_cmd("systemctl --user start hyprpolkitagent")
+    local WALLPAPER_INDEX = math.random(0, 13)
     hl.exec_cmd("awww-daemon")
+    hl.exec_cmd("sleep 1 && awww img ~/Pictures/walls/" .. WALLPAPER_INDEX .. ".jpg")
+    hl.exec_cmd("hyprsunset")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("hypridle")
     hl.exec_cmd("wl-paste --watch cliphist store")
     hl.exec_cmd("swaync")
@@ -127,8 +130,8 @@ hl.bind("SUPER + F", hl.dsp.exec_cmd("nautilus"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
 hl.bind("F2", hl.dsp.exec_cmd("pkill ashell || ashell"), {long_press = true})
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu | cliphist decode | wl-copy"))
-hl.bind("F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
-hl.bind("SUPER + F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder="Launch using discrete graphics"'))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
+hl.bind("SUPER + SHIFT + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder="Launch using discrete graphics"'))
 hl.bind("PRINT", hl.dsp.exec_cmd("pkill -x fuzzel || bash -c 'hyprshot -m $(echo -en \"region\nwindow\noutput\" | fuzzel --hide-prompt --dmenu) -o ~/Pictures/Screenshots/'"))
 hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("~/.config/hypr/screencast.sh"))
 
@@ -297,6 +300,12 @@ hl.permission({
     binary = "^/nix/store/[a-z0-9]{32}-grim-[0-9.]+.*/bin/grim$",
     type   = "screencopy",
     mode   = "allow"
+})
+
+hl.permission({
+    binary = "^/nix/store/[a-z0-9]{32}-grim-[0-9.]+.*/bin/hyprlock$",
+    type   = "screencopy",
+    mode   = "allow",
 })
 
 ----------------

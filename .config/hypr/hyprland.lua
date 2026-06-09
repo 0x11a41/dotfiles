@@ -127,7 +127,7 @@ hl.device({
 hl.bind("SUPER + T", hl.dsp.exec_cmd("kitty"))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("nautilus"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
-hl.bind("F2", hl.dsp.exec_cmd("pkill ashell || ashell"), {long_press = true})
+hl.bind("F2", hl.dsp.exec_cmd("pkill ashell || ashell"), { long_press = true})
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu | cliphist decode | wl-copy"))
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
 hl.bind("SUPER + SHIFT + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder="Launch using discrete graphics"'))
@@ -271,11 +271,7 @@ hl.window_rule({
 })
 
 
-hl.window_rule({
-    name = "float calculator",
-    match = { title = "Calculator" },
-    float = true,
-})
+hl.window_rule({ match = { title = "Calculator" }, float = true })
 
 hl.workspace_rule({workspace = "1", layout = "scrolling"})
 -- smart gaps
@@ -302,7 +298,7 @@ hl.permission({
 })
 
 hl.permission({
-    binary = "^/nix/store/[a-z0-9]{32}-grim-[0-9.]+.*/bin/hyprlock$",
+    binary = "/run/current-system/sw/bin/hyprlock",
     type   = "screencopy",
     mode   = "allow",
 })

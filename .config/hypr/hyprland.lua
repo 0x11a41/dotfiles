@@ -134,6 +134,7 @@ hl.bind("SUPER + SHIFT + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --lau
 hl.bind("PRINT", hl.dsp.exec_cmd("pkill -x fuzzel || bash -c 'hyprshot -m $(echo -en \"region\nwindow\noutput\" | fuzzel --hide-prompt --dmenu) -o ~/Pictures/Screenshots/'"))
 hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("~/.config/hypr/screencast.sh"))
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("pastel pick"))
+hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || ~/.config/hypr/emoji-picker.sh"))
 
 -- WINDOW CONTROLS
 hl.bind("SUPER + Q", hl.dsp.window.close())

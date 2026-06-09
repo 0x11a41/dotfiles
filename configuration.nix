@@ -142,7 +142,6 @@
       papers # document viewer
       snapshot # camera app
       gnome-calculator
-      gnome-calendar
       telegram-desktop
       gimp
       obsidian
@@ -245,7 +244,6 @@
     btop
     tldr
     pastel
-    hyprpicker
     ffmpeg-full
     man-pages
     man-pages-posix
@@ -281,6 +279,7 @@
     hyprland
     hypridle
     rose-pine-hyprcursor
+    hyprpicker
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
   ];

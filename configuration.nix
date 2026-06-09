@@ -245,6 +245,7 @@
     btop
     tldr
     pastel
+    hyprpicker
     ffmpeg-full
     man-pages
     man-pages-posix
@@ -276,7 +277,6 @@
     hyprsunset
     hyprpolkitagent
     hyprlock
-    hyprpicker
     hyprshot
     hyprland
     hypridle

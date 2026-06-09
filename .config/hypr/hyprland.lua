@@ -112,7 +112,7 @@ hl.config({
 ---------------
 hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 hl.gesture({ fingers = 4, direction = "horizontal", action = "resize" })
-hl.gesture({ fingers = 4, direction = "vertical", action = "resize" })
+hl.gesture({ fingers = 4, direction = "vertical",   action = "resize" })
 
 hl.device({
     name = "elan2304:00-04f3:3122-touchpad",
@@ -133,6 +133,7 @@ hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="k
 hl.bind("SUPER + SHIFT + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder="Launch using discrete graphics"'))
 hl.bind("PRINT", hl.dsp.exec_cmd("pkill -x fuzzel || bash -c 'hyprshot -m $(echo -en \"region\nwindow\noutput\" | fuzzel --hide-prompt --dmenu) -o ~/Pictures/Screenshots/'"))
 hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("~/.config/hypr/screencast.sh"))
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("pastel pick"))
 
 -- WINDOW CONTROLS
 hl.bind("SUPER + Q", hl.dsp.window.close())
@@ -157,10 +158,10 @@ hl.bind("SUPER + left", hl.dsp.focus({monitor = "l"}))
 -- WORKSPACES
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
-    hl.bind("SUPER + " .. key,             hl.dsp.focus({ workspace = i}))
-    hl.bind("SUPER + SHIFT + " .. key,     hl.dsp.window.move({ workspace = i }))
+    hl.bind("SUPER + " .. key, hl.dsp.focus({ workspace = i}))
+    hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
-hl.bind("F1",         hl.dsp.workspace.toggle_special("Ref"))
+hl.bind("F1", hl.dsp.workspace.toggle_special("Ref"))
 hl.bind("SHIFT + F1", hl.dsp.window.move({ workspace = "special:Ref" }))
 hl.bind("SUPER + RETURN", function()
     local current_layout = hl.get_active_workspace().tiled_layout
@@ -222,24 +223,9 @@ end)
 hl.bind("SUPER + SHIFT + Q", hl.dsp.exit())
 hl.bind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
 
-local function zoom(offset)
-    local MAX_ZOOM = 3
-    local MIN_ZOOM = 1
-    local ZOOM_TOGGLE_FACTOR = 1.5
-    local current = hl.get_config("cursor.zoom_factor")
-    if offset ~= nil then
-        current = current + offset
-    elseif current ~= MIN_ZOOM then
-        current = MIN_ZOOM
-    else
-        current = ZOOM_TOGGLE_FACTOR
-    end
-    current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
-    hl.config({ cursor = { zoom_factor = current } })
-end
-
-hl.bind("SUPER + Z", function() zoom(0.5) end, {repeating = true})
-hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true})
+local zoom;
+hl.bind("SUPER + Z", function() zoom(0.5) end,  { repeating = true })
+hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true })
 
 -- GLOBAL BINDINGS --
 hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
@@ -285,23 +271,10 @@ hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, rounding
 -----------------------
 ----- PERMISSIONS -----
 -----------------------
-hl.permission({
-    binary = "^/nix/store/[a-z0-9]{32}-xdg-desktop-portal-hyprland-[0-9.]+.*/libexec/xdg-desktop-portal-hyprland$",
-    type   = "screencopy",
-    mode   = "allow"
-})
-
-hl.permission({
-    binary = "^/nix/store/[a-z0-9]{32}-grim-[0-9.]+.*/bin/grim$",
-    type   = "screencopy",
-    mode   = "allow"
-})
-
-hl.permission({
-    binary = "/run/current-system/sw/bin/hyprlock",
-    type   = "screencopy",
-    mode   = "allow",
-})
+hl.permission({ binary = "^/nix/store/[a-z0-9]{32}-xdg-desktop-portal-hyprland-[0-9.]+.*/libexec/xdg-desktop-portal-hyprland$", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "^/nix/store/[a-z0-9]{32}-grim-[0-9.]+.*/bin/grim$",                                                   type = "screencopy", mode = "allow" })
+hl.permission({ binary = "^/nix/store/[a-z0-9]{32}-hyprpicker-[0-9.]+.*/bin/hyprpicker$",                                       type = "screencopy", mode = "allow" })
+hl.permission({ binary = "^/nix/store/[a-z0-9]{32}-hyprlock-[0-9.]+.*/bin/hyprlock$",                                           type = "screencopy", mode = "allow" })
 
 ----------------
 -- ANIMATIONS --
@@ -360,4 +333,22 @@ getrandom_wallp = function(path)
 
     local RANDOM_WALLP = math.random(1, #files)
     return path .. "/" .. files[RANDOM_WALLP]
+end
+
+---handles zooming in and out
+---@param fac number multiplicative factor to zoom
+zoom = function(fac)
+    local MAX_ZOOM = 3
+    local MIN_ZOOM = 1
+    local ZOOM_TOGGLE_FACTOR = 1.5
+    local current = hl.get_config("cursor.zoom_factor")
+    if fac ~= nil then
+        current = current + fac
+    elseif current ~= MIN_ZOOM then
+        current = MIN_ZOOM
+    else
+        current = ZOOM_TOGGLE_FACTOR
+    end
+    current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
+    hl.config({ cursor = { zoom_factor = current } })
 end

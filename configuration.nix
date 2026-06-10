@@ -1,5 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
-
+{ config, pkgs, nixpkgs-pureref, inputs, ... }:
+let
+  oldPkgs = import nixpkgs-pureref {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -146,13 +151,14 @@
       gimp
       obsidian
       resources
-      pureref
+      # pureref
       rnote
       # obs-studio
       pixelorama
       audacity
       kdePackages.kdenlive
       libreoffice
+      oldPkgs.pureref
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       vlc
       showtime
@@ -262,6 +268,7 @@
     lua
     lua-language-server
     clang
+    gcc
     gdb
     clang-tools
     lldb
@@ -276,7 +283,6 @@
     hyprpolkitagent
     hyprlock
     hyprshot
-    hyprland
     hypridle
     rose-pine-hyprcursor
     hyprpicker
@@ -284,7 +290,10 @@
     xdg-desktop-portal-hyprland
   ];
 
+  programs.hyprland.enable = true;
+
   services.displayManager.ly.enable = true;
+  services.displayManager.defaultSession = "hyprland";
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
 

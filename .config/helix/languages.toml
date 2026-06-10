@@ -5,3 +5,7 @@ command = "~/create/lua/.lua-language-server/bin/lua-language-server"
 command = "vala-language-server"
 file-types = ["vala", "vapi"]
 indent = { tab-width = 1, unit = "    " }
+
+[[language]]
+name = "c"
+indent = { tab-width = 4, unit = "    " }

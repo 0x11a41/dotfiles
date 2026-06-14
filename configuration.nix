@@ -224,10 +224,10 @@ in
     playerctl
     brightnessctl
     adwaita-icon-theme
+    pastel
     nixd
     nixdoc
     fuzzel
-    swaynotificationcenter
     ashell
     upower
     fastfetch
@@ -249,7 +249,6 @@ in
     tree
     btop
     tldr
-    pastel
     ffmpeg-full
     man-pages
     man-pages-posix

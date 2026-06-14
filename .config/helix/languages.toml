@@ -8,4 +8,5 @@ indent = { tab-width = 1, unit = "    " }
 
 [[language]]
 name = "c"
+file-types = [ "c", "h" ]
 indent = { tab-width = 4, unit = "    " }

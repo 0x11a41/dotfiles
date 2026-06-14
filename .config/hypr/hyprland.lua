@@ -28,7 +28,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("hypridle")
     hl.exec_cmd("wl-paste --watch cliphist store")
-    hl.exec_cmd("swaync")
+    hl.exec_cmd("ashell")
 end)
 
 
@@ -127,13 +127,13 @@ hl.device({
 hl.bind("SUPER + T", hl.dsp.exec_cmd("kitty"))
 hl.bind("SUPER + F", hl.dsp.exec_cmd("nautilus"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
-hl.bind("F2", hl.dsp.exec_cmd("pkill ashell || ashell"), { long_press = true})
+hl.bind("F2", hl.dsp.exec_cmd("ashell msg toggle-visibility"), { long_press = true})
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu | cliphist decode | wl-copy"))
 hl.bind("F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
 hl.bind("SUPER + F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder="Launch using discrete graphics"'))
 hl.bind("PRINT", hl.dsp.exec_cmd("pkill -x fuzzel || bash -c 'hyprshot -m $(echo -en \"region\nwindow\noutput\" | fuzzel --hide-prompt --dmenu) -o ~/Pictures/Screenshots/'"))
 hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("~/.config/hypr/screencast.sh"))
-hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("pastel pick"))
+hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
 hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || ~/.config/hypr/emoji-picker.sh"))
 
 -- WINDOW CONTROLS
@@ -145,12 +145,14 @@ hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
 hl.bind("SUPER + L", hl.dsp.focus({ direction = "right" }))
 hl.bind("SUPER + K", hl.dsp.focus({ direction = "up" }))
 hl.bind("SUPER + J", hl.dsp.focus({ direction = "down" }))
-hl.bind("SUPER + SHIFT + L",  hl.dsp.window.move({ direction = "right" }))
-hl.bind("SUPER + SHIFT + H",  hl.dsp.window.move({ direction = "left" }))
-hl.bind("SUPER + SHIFT + K",  hl.dsp.window.move({ direction = "up" }))
-hl.bind("SUPER + SHIFT + J",  hl.dsp.window.move({ direction = "down" }))
-hl.bind("SUPER + mouse_up",   hl.dsp.focus({ direction = "right" }))
-hl.bind("SUPER + mouse_down", hl.dsp.focus({ direction = "left", }))
+hl.bind("SUPER + SHIFT + L",   hl.dsp.window.move({ direction = "right" }))
+hl.bind("SUPER + SHIFT + H",   hl.dsp.window.move({ direction = "left" }))
+hl.bind("SUPER + SHIFT + K",   hl.dsp.window.move({ direction = "up" }))
+hl.bind("SUPER + SHIFT + J",   hl.dsp.window.move({ direction = "down" }))
+hl.bind("SUPER + mouse_up",    hl.dsp.focus({ direction = "right" }))
+hl.bind("SUPER + mouse_down",  hl.dsp.focus({ direction = "left", }))
+hl.bind("SUPER + TAB",         hl.dsp.focus({ direction = "right" }), { repeating = true })
+hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ direction = "left" }),  { repeating = true })
 
 -- MONITOR
 hl.bind("SUPER + right", hl.dsp.focus({monitor = "r"}))
@@ -163,7 +165,7 @@ for i = 1, 10 do
     hl.bind("SUPER + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 hl.bind("F1", hl.dsp.workspace.toggle_special("Ref"))
-hl.bind("SHIFT + F1", hl.dsp.window.move({ workspace = "special:Ref" }))
+hl.bind("SUPER + SHIFT + F1", hl.dsp.window.move({ workspace = "special:Ref" }))
 hl.bind("SUPER + RETURN", function()
     local current_layout = hl.get_active_workspace().tiled_layout
     local id = hl.get_active_workspace().id
@@ -176,8 +178,8 @@ hl.bind("SUPER + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- MULTIMEDIA KEYS
-hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"),{ locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),       { locked = true, repeating = true })
+hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("ashell msg volume-up"),{ locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("ashell msg volume-down"),       { locked = true, repeating = true })
 hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),      { locked = true, repeating = true })
 hl.bind("XF86AudioMicMute",      hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),    { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 3%+"),                   { locked = true, repeating = true })

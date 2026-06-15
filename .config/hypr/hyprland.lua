@@ -139,6 +139,10 @@ hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || ~/.config/hypr/emoji-
 -- WINDOW CONTROLS
 hl.bind("SUPER + Q", hl.dsp.window.close())
 hl.bind("SUPER + V", hl.dsp.window.float({ action = "toggle" }))
+hl.bind("SUPER + SHIFT + V", function()
+    hl.dispatch(hl.dsp.window.float())
+    hl.dispatch(hl.dsp.window.pin())
+end)
 hl.bind("F11", hl.dsp.window.fullscreen())
 hl.bind("SUPER + P", hl.dsp.window.pseudo())
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))

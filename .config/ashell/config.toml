@@ -22,7 +22,7 @@ right = [ "SystemInfo", [ "Tray", "Privacy", "Settings" ], "Notifications"]
 [notifications]
 format = "%m/%d %H:%M"
 show_timestamps = true
-show_bodies = false
+show_bodies = true
 grouped = true
 toast = true
 toast_position = "top_right"
@@ -87,7 +87,7 @@ workspace_colors = [ "#DAC6FA", "#b4befe", "#cba6f7" ]
 
 [appearance.menu]
 opacity = 1.0
-backdrop = 0.2
+backdrop = 0.3
 
 
 [appearance.danger_color]

@@ -12,10 +12,32 @@ in
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "i8042.nokbd" ]; # to disable laptop keyboard
+
+  # disabling laptop keyboard and touchpad
+  boot.blacklistedKernelModules = [ 
+    "i2c_hid_acpi" 
+    "i2c_hid" 
+    "hid_multitouch" 
+  ];
+  boot.kernelParams = [ 
+    "mem_sleep_default=deep" 
+    "i8042.reset=1" 
+    "i8042.nosmart=1" 
+  ];
+  services.udev.extraRules = ''
+    # Ignore the broken ELAN Touchpad/Mouse interface
+    SUBSYSTEM=="input", ATTRS{id}=="i2c:04f3:3122", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+    
+    # Optional fail-safe: Ensure the internal keyboard matrix can't circumvent sleep
+    SUBSYSTEM=="input", ATTRS{name}=="AT Translated Set 2 keyboard", ENV{LIBINPUT_IGNORE_DEVICE}="1"
+  '';
   services.logind.settings.Login = {
     HandlePowerKey = "hibernate";
+    HandleLidSwitchExternalPower = "suspend";
+    # HandleLidSwitch = "suspend-them-hibernate";
+    HandleLidSwitch = "suspend";
   };
+  # systemd.sleep.settings.Sleep = { HibernateDelaySec = "1h"; };
 
   networking.networkmanager.enable = true;
   networking.hostName = "nixos";
@@ -46,10 +68,8 @@ in
     prime = {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:6:0:0";
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
+      offload.enable = true;
+      offload.enableOffloadCmd = true;
     };
   };
 
@@ -237,6 +257,7 @@ in
     blueman
     wf-recorder
     libnotify
+    libinput
     slurp
     glib
     zlib

@@ -1,11 +1,11 @@
-# Thanks to github.com/end-4/fuzzel-emoji for this script
+# Thanks to github.com/end-4 for this script
 
 #!/usr/bin/env bash
 set -euo pipefail
 
 MODE="${1:-type}"
 
-emoji="$(sed '1,/^### DATA ###$/d' "$0" | fuzzel --match-mode fzf --dmenu | cut -d ' ' -f 1 | tr -d '\n')"
+emoji="$(sed '1,/^### DATA ###$/d' "$0" | fuzzel --mesg='Emoji picker' --dmenu | cut -d ' ' -f 1 | tr -d '\n')"
 
 case "$MODE" in
     type)

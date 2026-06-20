@@ -65,6 +65,7 @@ max_volume = 150
 name = "Dark Mode"
 icon = "🌗"
 command = "~/.config/hypr/switch_theme.sh"
+status_command = "dconf read /org/gnome/desktop/interface/color-scheme | grep -q 'prefer-dark'"
 # tooltip = "Toggle dark mode"
 
 [system_info]

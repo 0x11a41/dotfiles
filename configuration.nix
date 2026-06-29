@@ -171,11 +171,9 @@ in
       gimp
       obsidian
       resources
-      # pureref
       rnote
-      # obs-studio
       pixelorama
-      audacity
+      krita
       kdePackages.kdenlive
       libreoffice
       oldPkgs.pureref
@@ -185,7 +183,6 @@ in
       gparted
       nautilus
       nautilus-open-any-terminal
-      pavucontrol
     ];
   };
 
@@ -228,6 +225,18 @@ in
       userServices = true;
     };
   };
+
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--operator=hk" ];
+  };
+
+  # services.immich = {
+  #   enable = true;
+  #   host = "0.0.0.0";
+  #   port = 2283;
+  #   mediaLocation = "/immich";
+  # };
 
   networking.firewall = {
     enable = true;
@@ -297,6 +306,7 @@ in
     jq
     file
     bash-language-server
+    fish-lsp
     libwacom
     hyprls
     hyprsunset
@@ -308,6 +318,7 @@ in
     hyprpicker
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
+    pavucontrol
   ];
 
   programs.hyprland.enable = true;

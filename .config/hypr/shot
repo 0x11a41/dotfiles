@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+pkill -x fuzzel
+
+set choices region window output
+set TARGET (string join \n $choices | fuzzel --hide-prompt --dmenu --mesg='Take Screenshot')
+
+if test -n "$TARGET"
+    hyprshot -m $TARGET -o ~/Pictures/Screenshots/
+end

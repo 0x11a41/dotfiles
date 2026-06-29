@@ -10,3 +10,11 @@ indent = { tab-width = 1, unit = "    " }
 name = "c"
 file-types = [ "c", "h" ]
 indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "css"
+auto-format = false
+
+[[language]]
+name = "scss"
+auto-format = false

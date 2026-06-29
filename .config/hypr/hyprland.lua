@@ -132,10 +132,13 @@ hl.bind("F2", hl.dsp.exec_cmd("ashell msg toggle-visibility"), { long_press = tr
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu --mesg='Clipboard history' | cliphist decode | wl-copy"))
 hl.bind("F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
 hl.bind("SUPER + F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder=" Launch using discrete graphics"'))
-hl.bind("PRINT", hl.dsp.exec_cmd("pkill -x fuzzel || bash -c 'hyprshot -m $(echo -en \"region\nwindow\noutput\" | fuzzel --hide-prompt --dmenu) -o ~/Pictures/Screenshots/'"))
-hl.bind("SHIFT + PRINT", hl.dsp.exec_raw("~/.config/hypr/screencast.sh"))
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
 hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || ~/.config/hypr/emoji-picker.sh"))
+-- screenshot
+hl.bind("PRINT", hl.dsp.exec_cmd("~/.config/hypr/shot"))
+-- screen recording
+hl.bind("PRINT", hl.dsp.exec_raw("~/.config/hypr/cast"), { long_press = true })
+hl.bind("F10", hl.dsp.exec_raw("~/.config/hypr/cast stop"), { long_press = true })
 
 -- WINDOW CONTROLS
 hl.bind("SUPER + Q", hl.dsp.window.close())

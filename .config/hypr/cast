@@ -4,25 +4,25 @@
 # WF-RECORDER CONFIGURATION
 # =============================================================================
 # 1. Output Format & Saving
-set OUTPUT_FORMAT mp4 # Extension: mp4, mkv, webm, or gif
+set OUTPUT_FORMAT gif # Extension: mp4, mkv, webm, or gif
 set OVERWRITE_FILE -y # "-y" to force overwrite without prompting, or "" to disable
 
 # 2. Audio Settings
 # Note: For GIFs, remove "-a" or set AUDIO_BACKEND to "" as GIFs don't support audio.
-set RECORD_AUDIO -a # "-a" to record audio, "" to disable video-only
+set RECORD_AUDIO "" # "-a" to record audio, "" to disable video-only
 set AUDIO_DEVICE "" # Leave empty for default, or specify (e.g., "-a<device_name>")
 set AUDIO_BACKEND "--audio-backend=pipewire" # Options: pulse, pipewire, etc.
 set AUDIO_CODEC "" # e.g., "-C aac". Leave empty for default.
 
 # 3. Video & Performance Tweaks
 set CODEC "" # e.g., "-c libx264" or "-c gif". Leave empty for default.
-set FRAMERATE "-r 30" # e.g., "-r 60" for a locked 60 FPS, or "" for variable
+set FRAMERATE "" # e.g., "-r 60" for a locked 60 FPS, or "" for variable
 set MAX_BFRAMES "" # e.g., "-b 0" if your hardware doesn't support b-frames
 
 # 4. Advanced Performance Optimizations
 # By default, wf-recorder only saves a frame when the screen updates (Variable Refresh Rate).
 # Turn this flag ON ("-D") to force continuous recording (bigger file size, smoother for editing).
-set FORCE_CONSTANT_VRR -D # "-D" or "--no-damage" to force constant frames, "" for default optimization
+set FORCE_CONSTANT_VRR "" # "-D" or "--no-damage" to force constant frames, "" for default optimization
 
 # Force CPU encoding if your GPU/VAAPI drivers are causing black screens or errors
 set DISABLE_GPU_BUFFERS "" # "--no-dmabuf" to force CPU encoding, "" for default GPU copy
@@ -30,18 +30,20 @@ set DISABLE_GPU_BUFFERS "" # "--no-dmabuf" to force CPU encoding, "" for default
 # END OF WF-RECORDER CONFIGURATION
 # =============================================================================
 
-set SPEC $RECORD_AUDIO $AUDIO_DEVICE $AUDIO_BACKEND $AUDIO_CODEC $CODEC $FRAMERATE $MAX_BFRAMES $FORCE_CONSTANT_VRR $DISABLE_GPU_BUFFERS $OVERWRITE_FILE
 if test "$OUTPUT_FORMAT" = gif
     set RECORD_AUDIO ""
     set AUDIO_BACKEND ""
     set FORCE_CONSTANT_VRR ""
-    set CODEC "-c gif"
-    set SPEC $CODEC $FRAMERATE $MAX_BFRAMES $DISABLE_GPU_BUFFERS $OVERWRITE_FILE
+    set FMT mp4
+else
+    set FMT $OUTPUT_FORMAT
 end
+
+set SPEC $RECORD_AUDIO $AUDIO_DEVICE $AUDIO_BACKEND $AUDIO_CODEC $CODEC $FRAMERATE $MAX_BFRAMES $FORCE_CONSTANT_VRR $DISABLE_GPU_BUFFERS $OVERWRITE_FILE
 
 set TERMINAL kitty
 
-set FILE "$HOME/Videos/Screencasts/screencast-$(date +'%Y-%m-%d_%H%M%S').$OUTPUT_FORMAT"
+set FILE "$HOME/Videos/Screencasts/screencast-$(date +'%Y-%m-%d_%H%M%S').$FMT"
 set LOGFILE "/tmp/recstat.log"
 set monitors (hyprctl monitors | awk '/^Monitor/ { print $2 }')
 set OPT $argv[1]
@@ -57,7 +59,7 @@ if test -z "$argv"
 
     set opts $opts $monitors region configure
 
-    set OPT (string join \n $opts | fuzzel --dmenu --hide-prompt --mesg='long press F10 to stop')
+    set OPT (string join \n $opts | fuzzel --dmenu --hide-prompt --mesg='SUPER + F10 to stop')
 
     if test -z "$OPT"
         exit
@@ -72,19 +74,26 @@ switch $OPT
         if pidof wf-recorder >/dev/null
             pkill wf-recorder
 
-            set FINAL_FILENAME (head -n 1 $LOGFILE)
+            set RECORDED_VIDEO (head -n 1 $LOGFILE)
+            set FINAL_FILENAME $RECORDED_VIDEO
 
-            set NOTIFY_RES (notify-send \
-                -a "wf-recorder" \
-                -i video-display \
-                -h string:file_path:"$FINAL_FILENAME" \
-                -A "open=Open Location" \
-                "Recording Stopped" \
-                "File saved to: $(basename $FINAL_FILENAME)")
-
-            if test "$NOTIFY_RES" = open
-                nautilus "$FINAL_FILENAME"
+            if test "$OUTPUT_FORMAT" = gif
+                set FINAL_FILENAME (string replace -r '\.mp4$' '.gif' $RECORDED_VIDEO)
+                ffmpeg -y -i "$RECORDED_VIDEO" -ss 00:00:00 -t 9 -vf "fps=12,scale=800:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" "$FINAL_FILENAME"
+                rm "$RECORDED_VIDEO"
             end
+
+            # set NOTIFY_RES (notify-send \
+            #     -a "wf-recorder" \
+            #     -i video-display \
+            #     -h string:file_path:"$FINAL_FILENAME" \
+            #     -A "open=Open Location" \
+            #     "Recording Stopped" \
+            #     "File saved to: $(basename $FINAL_FILENAME)")
+
+            # if test "$NOTIFY_RES" = open
+            #     nautilus "$FINAL_FILENAME"
+            # end
         end
 
     case region

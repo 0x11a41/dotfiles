@@ -131,14 +131,14 @@ hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
 hl.bind("F2", hl.dsp.exec_cmd("ashell msg toggle-visibility"), { long_press = true})
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu --mesg='Clipboard history' | cliphist decode | wl-copy"))
 hl.bind("F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --terminal="kitty -e" --placeholder=" Launch using integrated graphics"'))
-hl.bind("SUPER + F3", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder=" Launch using discrete graphics"'))
+hl.bind("F3", hl.dsp.exec_cmd('pkill fuzzel; fuzzel --launch-prefix="nvidia-offload" --placeholder=" Launch using discrete graphics"'), {long_press = true})
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
 hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || ~/.config/hypr/emoji-picker.sh"))
 -- screenshot
-hl.bind("PRINT", hl.dsp.exec_cmd("~/.config/hypr/shot"))
+hl.bind("PRINT", hl.dsp.exec_raw("~/.config/hypr/shot"))
 -- screen recording
 hl.bind("PRINT", hl.dsp.exec_raw("~/.config/hypr/cast"), { long_press = true })
-hl.bind("F10", hl.dsp.exec_raw("~/.config/hypr/cast stop"), { long_press = true })
+hl.bind("SUPER + F10", hl.dsp.exec_raw("~/.config/hypr/cast stop"))
 
 -- WINDOW CONTROLS
 hl.bind("SUPER + Q", hl.dsp.window.close())
@@ -239,7 +239,7 @@ hl.bind("SUPER + Z", function() zoom(0.5) end,  { repeating = true })
 hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true })
 
 -- GLOBAL BINDINGS --
-hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+-- hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
 
 
 --------------------------------------

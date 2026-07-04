@@ -180,10 +180,16 @@ in
       inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
       vlc
       showtime
-      gparted
       nautilus
       nautilus-open-any-terminal
     ];
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   programs.localsend = {
@@ -231,13 +237,6 @@ in
     extraSetFlags = [ "--operator=hk" ];
   };
 
-  # services.immich = {
-  #   enable = true;
-  #   host = "0.0.0.0";
-  #   port = 2283;
-  #   mediaLocation = "/immich";
-  # };
-
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 80 443 ];
@@ -247,7 +246,23 @@ in
     ];
   };
 
+  services.immich = {
+    enable = true;
+    host = "0.0.0.0";
+    port = 2283;
+    mediaLocation = "/immich";
+  };
+
   environment.systemPackages = with pkgs; [
+    (makeDesktopItem {
+      name = "photos";
+      desktopName = "Photos";
+      genericName = "Photo Backup";
+      comment = "Self-hosted photo and video backup solution";
+      exec = "${pkgs.xdg-utils}/bin/xdg-open http://nixos:2283";
+      icon = "zen";
+      categories = [ "Network" "WebBrowser" ];
+    })
     helix
     wl-clipboard
     playerctl
@@ -271,6 +286,8 @@ in
     glib
     zlib
     gzip
+    nmap
+    tcpdump
     unzip
     awww
     kitty

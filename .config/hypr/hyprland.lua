@@ -1,13 +1,33 @@
+local defaultScale = 1.25
+local edp1 = { res = "1920x1080@60", scale = defaultScale } -- initial
+
+-- fonts looks blurry in some scaled x-wayland applications.
+-- this function can be called to switch resolution in those situations.
+local toggle_edp1_resolution = function()
+    hl.monitor({
+        output    = "eDP-1",
+        mode      = edp1.res,
+        position  = "0x0",
+        scale     = edp1.scale,
+        transform = 0,
+    })
+
+    local full = "1920x1080@60"
+    local scaled = "1600x900@60"
+
+    if edp1.res == full then
+        edp1.res = scaled
+        edp1.scale = 1.0
+    else
+        edp1.res = full
+        edp1.scale = defaultScale
+    end
+end
+
 ------------------
 ---- MONITORS ----
 ------------------
-hl.monitor({
-    output    = "eDP-1",
-    mode      = "1920x1080@60",
-    position  = "0x0",
-    scale     = 1.25,
-    transform = 0,
-})
+toggle_edp1_resolution()
 
 hl.monitor({
     output   = "",
@@ -165,6 +185,10 @@ hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ direction = "left" }),  { repeatin
 -- MONITOR
 hl.bind("SUPER + right", hl.dsp.focus({monitor = "r"}))
 hl.bind("SUPER + left", hl.dsp.focus({monitor = "l"}))
+hl.bind("ALT + RETURN", function()
+    hl.notification.create({text = "Current resolution: "..edp1.res.."::"..edp1.scale, timeout = 3000})
+    hl.dispatch(toggle_edp1_resolution)
+end)
 
 -- WORKSPACES
 for i = 1, 10 do

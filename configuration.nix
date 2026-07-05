@@ -18,6 +18,7 @@ in
     "i2c_hid_acpi" 
     "i2c_hid" 
     "hid_multitouch" 
+    "redmi-wmi"
   ];
   boot.kernelParams = [ 
     "mem_sleep_default=deep" 
@@ -156,7 +157,7 @@ in
 
   users.users.hk = {
     isNormalUser = true;
-    hashedPassword = "$y$j9T$D.Gc4dBkIlpxoabvNsemz/$JrIQVLeg6ZtXgxAMbVTFPMa8IvQ3UuEIMoWNWMFJ3UD";
+    initialPassword = "nixos";
     description = "Harikrishna Mohan";
     extraGroups = [ "networkmanager" "wheel" "vboxusers" ];
     shell = pkgs.fish;

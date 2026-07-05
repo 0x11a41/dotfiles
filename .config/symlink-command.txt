@@ -1,0 +1,7 @@
+#!/usr/bin/env fish
+
+for dir in *
+    if test -d $dir
+        ln --symbolic -n "/home/hk/dotfiles/.config/$dir" "/home/hk/.config/$dir"
+    end
+end

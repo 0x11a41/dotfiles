@@ -94,7 +94,7 @@ workspace_colors = [ "#DAC6FA", "#b4befe", "#cba6f7" ]
 
 [appearance.menu]
 opacity = 1.0
-backdrop = 0.3
+backdrop = 0.2
 
 
 [appearance.danger_color]

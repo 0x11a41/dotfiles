@@ -235,7 +235,7 @@ hl.define_submap("resize", function()
     hl.bind("K", hl.dsp.window.resize({ x = 0  , y = 25 , relative = true}), { repeating = true })
     hl.bind("J", hl.dsp.window.resize({ x = 0  , y = -25, relative = true}), { repeating = true })
 
-    hl.bind("catchall", function()
+    hl.bind("ESCAPE", function()
         hl.notification.create({text = 'Left resize mode.', timeout = 2500})
         hl.dispatch(hl.dsp.submap("reset"))
     end)

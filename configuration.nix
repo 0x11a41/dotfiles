@@ -15,6 +15,7 @@ in
 
   # disabling laptop keyboard and touchpad
   boot.blacklistedKernelModules = [ 
+    "atkbd"
     "i2c_hid_acpi" 
     "i2c_hid" 
     "hid_multitouch" 

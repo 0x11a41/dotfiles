@@ -82,7 +82,7 @@ hl.config({
         inactive_opacity = 0.92,
         -- screen_shader = "crt.frag",
         shadow = { enabled = false },
-        blur = { enabled = false, size = 3, },
+        blur = { enabled = false, size = 8, passes = 2},
     },
 
     animations = { enabled = true },
@@ -297,7 +297,7 @@ hl.window_rule({
 
 
 hl.window_rule({ match = { title = "Calculator" }, float = true })
-hl.layer_rule({ match = { class = "fuzzel" }, dim_around = true, no_anim = true})
+hl.layer_rule({ match = { namespace = "launcher" }, dim_around = true, no_anim = true, })
 
 hl.workspace_rule({workspace = "1", layout = "scrolling"})
 -- smart gaps
@@ -339,7 +339,7 @@ hl.animation({ leaf = "layers",        enabled = true,  speed = 3.0 * SPEED_FAC,
 hl.animation({ leaf = "layersIn",      enabled = true,  speed = 2.5 * SPEED_FAC,  bezier = "easeOutQuint",  style = "fade" })
 hl.animation({ leaf = "layersOut",     enabled = true,  speed = 1.5 * SPEED_FAC,  bezier = "quick",         style = "fade" })
 
-hl.animation({ leaf = "workspaces",    enabled = true,  speed = 3.0 * SPEED_FAC,  bezier = "easeOutQuint",  style = "slide" })
+hl.animation({ leaf = "workspaces",    enabled = true,  speed = 3.0 * SPEED_FAC,  bezier = "easeOutQuint",  style = "slidevert" })
 hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 2.5 * SPEED_FAC,  bezier = "easeOutQuint",  style = "slide" })
 hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 2.5 * SPEED_FAC,  bezier = "easeOutQuint",  style = "slide" })
 

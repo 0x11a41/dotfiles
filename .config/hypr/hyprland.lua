@@ -189,7 +189,7 @@ hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ direction = "left" }),  { repeatin
 -- MONITOR
 hl.bind("SUPER + right", hl.dsp.focus({monitor = "r"}))
 hl.bind("SUPER + left", hl.dsp.focus({monitor = "l"}))
-hl.bind("ALT + RETURN", function()
+hl.bind("SUPER + RETURN", function()
     hl.notification.create({text = "Current resolution: "..edp1.res.."::"..edp1.scale, timeout = 3000})
     hl.dispatch(toggle_edp1_resolution)
 end)
@@ -202,7 +202,7 @@ for i = 1, 10 do
 end
 hl.bind("SUPER + GRAVE", hl.dsp.workspace.toggle_special("Ref"))
 hl.bind("SUPER + SHIFT + GRAVE", hl.dsp.window.move({ workspace = "special:Ref" }))
-hl.bind("SUPER + RETURN", function()
+hl.bind("SUPER + TAB", function()
     local current_layout = hl.get_active_workspace().tiled_layout
     local id = hl.get_active_workspace().id
     local new_layout = current_layout == "dwindle" and "scrolling" or "dwindle"

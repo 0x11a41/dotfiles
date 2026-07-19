@@ -1,10 +1,9 @@
-local defaultScale = 1.25
-local edp1 = { res = "1920x1080@60", scale = defaultScale } -- initial resolution and scale
-local getrandom_wallp; -- function returns a random wallpaper name from specified path
+-------------------------
+--- UTILITY FUNCTIONS ---
+-------------------------
+local defaultScaleFac = 1.25
+local edp1 = { res = "1920x1080@60", scale = defaultScaleFac } -- initial resolution and scale
 
-------------------
----- MONITORS ----
-------------------
 -- UI looks blurry in some electron applications.
 -- this function can be called to switch resolution and scale in those situations.
 local toggle_edp1_resolution = function()
@@ -24,12 +23,67 @@ local toggle_edp1_resolution = function()
         edp1.scale = 1.0
     else
         edp1.res = full
-        edp1.scale = defaultScale
+        edp1.scale = defaultScaleFac
     end
 end
 
-toggle_edp1_resolution()
+---@param path string path to directory containing wallpapers
+---@return string file name of randomly selected wallpaper from specified directory
+local function getrandom_wallp(path)
+    path = path:gsub("~", tostring(os.getenv("HOME")))
+    local handle = io.popen("ls " .. path .." | grep -E '\\.(png|jpg|webp|gif)$'")
+    if not handle then
+        hl.notification.create({ text = "ERROR: wallpaper directory - " .. path .. "  was not found.", timeout = 3000 })
+        return ""
+    end
 
+    local files = {}
+    for file in handle:lines() do
+        table.insert(files, file)
+    end
+    handle:close()
+
+    if #files <= 0 then
+        hl.notification.create({ text = "ERROR: wallpaper list appear empty. ", timeout = 3000 })
+        return ""
+    end
+
+    local RANDOM_WALLP = math.random(1, #files)
+    return path .. "/" .. files[RANDOM_WALLP]
+end
+
+---handles zooming in and out
+---@param fac number multiplicative factor to zoom
+local function zoom(fac)
+    local MAX_ZOOM = 3
+    local MIN_ZOOM = 1
+    local ZOOM_TOGGLE_FACTOR = 1.5
+    local current = hl.get_config("cursor.zoom_factor")
+    if fac ~= nil then
+        current = current + fac
+    elseif current ~= MIN_ZOOM then
+        current = MIN_ZOOM
+    else
+        current = ZOOM_TOGGLE_FACTOR
+    end
+    current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
+    hl.config({ cursor = { zoom_factor = current } })
+end
+
+
+--[======================================================[
+    __  ____  ______  ____  _      ___    __  __ ___
+   / / / / / / / __ \/ __ \/ |    /   |  / | / / __ \ 
+  / /_/ / /_/ / /_/ / /_/ /  |   / /| | /  |/ / / / /
+ / __  /\__, / ____/ _, _/ /| | / ___ |/ /|  / /_/ /   
+/_/ /_/____/_/    /_/ |_/_/ |_/_/  |_/_/ |_/_____/    
+                                                      
+]======================================================]
+
+------------------
+---- MONITORS ----
+------------------
+toggle_edp1_resolution()
 hl.monitor({
     output   = "",
     mode     = "preferred",
@@ -49,16 +103,13 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("hypridle")
     hl.exec_cmd("wl-paste --watch cliphist store")
     hl.exec_cmd("ashell")
-    hl.exec_cmd("sleep 1 && ashell msg toggle-visibility")
 end)
-
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
 hl.env("HYPRCURSOR_SIZE", 24)
-
 
 -----------------------
 ---- LOOK AND FEEL ----
@@ -262,7 +313,6 @@ end)
 hl.bind("SUPER + SHIFT + Q", hl.dsp.exit())
 hl.bind("ALT + L", hl.dsp.exec_cmd("hyprlock"))
 
-local zoom;
 hl.bind("SUPER + Z", function() zoom(0.5) end,  { repeating = true })
 hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true })
 
@@ -273,12 +323,11 @@ hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true })
 --------------------------------------
 ---- WINDOWS AND WORKSPACES RULES ----
 --------------------------------------
-local suppressMaximizeRule = hl.window_rule({
+hl.window_rule({
     name  = "suppress-maximize-events",
     match = { class = ".*" },
     suppress_event = "maximize",
 })
--- suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
     -- Fix some dragging issues with XWayland
@@ -345,50 +394,3 @@ hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 2.5 * SPEED_FAC,
 
 hl.animation({ leaf = "border",        enabled = true,  speed = 3.0 * SPEED_FAC,  bezier = "quick" })
 hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 4.0 * SPEED_FAC,  bezier = "quick" })
-
-
------------------------
--- UTILITY FUNCTIONS --
------------------------
----@param path string path to directory containing wallpapers
----@return string file name of randomly selected wallpaper from specified directory
-getrandom_wallp = function(path)
-    path = path:gsub("~", tostring(os.getenv("HOME")))
-    local handle = io.popen("ls " .. path .." | grep -E '\\.(png|jpg|webp|gif)$'")
-    if not handle then
-        hl.notification.create({ text = "ERROR: wallpaper directory - " .. path .. "  was not found.", timeout = 3000 })
-        return ""
-    end
-
-    local files = {}
-    for file in handle:lines() do
-        table.insert(files, file)
-    end
-    handle:close()
-
-    if #files <= 0 then
-        hl.notification.create({ text = "ERROR: wallpaper list appear empty. ", timeout = 3000 })
-        return ""
-    end
-
-    local RANDOM_WALLP = math.random(1, #files)
-    return path .. "/" .. files[RANDOM_WALLP]
-end
-
----handles zooming in and out
----@param fac number multiplicative factor to zoom
-zoom = function(fac)
-    local MAX_ZOOM = 3
-    local MIN_ZOOM = 1
-    local ZOOM_TOGGLE_FACTOR = 1.5
-    local current = hl.get_config("cursor.zoom_factor")
-    if fac ~= nil then
-        current = current + fac
-    elseif current ~= MIN_ZOOM then
-        current = MIN_ZOOM
-    else
-        current = ZOOM_TOGGLE_FACTOR
-    end
-    current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
-    hl.config({ cursor = { zoom_factor = current } })
-end

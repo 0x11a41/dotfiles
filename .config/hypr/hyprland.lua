@@ -1,8 +1,12 @@
 local defaultScale = 1.25
-local edp1 = { res = "1920x1080@60", scale = defaultScale } -- initial
+local edp1 = { res = "1920x1080@60", scale = defaultScale } -- initial resolution and scale
+local getrandom_wallp; -- function returns a random wallpaper name from specified path
 
--- fonts looks blurry in some scaled x-wayland applications.
--- this function can be called to switch resolution in those situations.
+------------------
+---- MONITORS ----
+------------------
+-- UI looks blurry in some electron applications.
+-- this function can be called to switch resolution and scale in those situations.
 local toggle_edp1_resolution = function()
     hl.monitor({
         output    = "eDP-1",
@@ -24,9 +28,6 @@ local toggle_edp1_resolution = function()
     end
 end
 
-------------------
----- MONITORS ----
-------------------
 toggle_edp1_resolution()
 
 hl.monitor({
@@ -37,7 +38,6 @@ hl.monitor({
     mirror   = "eDP-1"
 })
 
-local getrandom_wallp; -- function returns a random wallpaper name from specified path
 -------------------
 ---- AUTOSTART ----
 -------------------

@@ -10,15 +10,30 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-pureref, ... }@inputs: {
-    nixosConfigurations = {
+  outputs = inputs@{ nixpkgs, ... }: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs nixpkgs-pureref;
-        };
-        modules = [ ./configuration.nix ];
-      };
+
+      modules = [
+        ({ ... }: {
+          nixpkgs.overlays = [
+            (final: prev:
+            let
+              system = prev.stdenv.hostPlatform.system;
+            in
+            {
+              pureref = (import inputs.nixpkgs-pureref {
+                inherit system;
+                config.allowUnfree = true;
+              }).pureref;
+
+              zen-browser = inputs.zen-browser.packages.${system}.default;
+            })
+          ];
+        })
+
+        ./configuration.nix
+      ];
     };
   };
 }

@@ -1,13 +1,7 @@
-{ config, pkgs, nixpkgs-pureref, inputs, ... }:
-let
-  oldPkgs = import nixpkgs-pureref {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
+{ config, pkgs, ... }:
 {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -160,7 +154,7 @@ in
     isNormalUser = true;
     initialPassword = "nixos";
     description = "Harikrishna Mohan";
-    extraGroups = [ "networkmanager" "wheel" "vboxusers" ];
+    extraGroups = [ "networkmanager" "wheel" "vboxusers" "dialout" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       gnome-text-editor
@@ -177,9 +171,10 @@ in
       pixelorama
       krita
       kdePackages.kdenlive
+      arduino-ide
       libreoffice
-      oldPkgs.pureref
-      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pureref
+      zen-browser
       vlc
       showtime
       nautilus

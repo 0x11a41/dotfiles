@@ -17,7 +17,7 @@ enabled = true
 [modules]
 left = ["AppLauncher", [ "Workspaces" ]]
 center = [ "Tempo", "MediaPlayer" ]
-right = [ "SystemInfo", [ "Tray", "Privacy", "Settings" ], "Notifications"]
+right = [ "SystemInfo", "ClipHist", [ "Tray", "Privacy", "Settings" ], "Notifications"]
 
 [notifications]
 format = "%m/%d %H:%M"
@@ -39,15 +39,16 @@ indicator_format = "Icon"
 # max_title_length = 50
 
 [[CustomModule]]
-name = "ThemeSwitcher"
-icon = "🌗"
-command = "~/.config/hypr/switch_theme.sh"
-
-[[CustomModule]]
 name = "AppLauncher"
 type = "Button"
 icon = "󱗼"
 command = "fuzzel --placeholder=' Launch using integrated graphics'"
+
+[[CustomModule]]
+name = "ClipHist"
+type = "Button"
+icon = "⧉"
+command = "pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu --mesg='Clipboard history' | cliphist decode | wl-copy"
 
 [settings]
 lock_cmd = "playerctl --all-players pause; hyprlock &"

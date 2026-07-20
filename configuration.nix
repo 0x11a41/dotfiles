@@ -168,6 +168,7 @@
       obsidian
       resources
       rnote
+      antigravity
       pixelorama
       krita
       kdePackages.kdenlive

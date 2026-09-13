@@ -149,13 +149,11 @@
     '';    
   };
 
-  virtualisation.virtualbox.host.enable = true;
-
   users.users.hk = {
     isNormalUser = true;
     initialPassword = "nixos";
     description = "Harikrishna Mohan";
-    extraGroups = [ "networkmanager" "wheel" "vboxusers" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       gnome-text-editor
@@ -175,6 +173,8 @@
       libreoffice
       pureref
       zen-browser
+      drawio
+      vscodium
       google-chrome
       vlc
       showtime # video player

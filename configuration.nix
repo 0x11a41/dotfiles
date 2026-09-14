@@ -36,6 +36,7 @@
   # systemd.sleep.settings.Sleep = { HibernateDelaySec = "1h"; };
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
   networking.hostName = "nixos";
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -305,6 +306,7 @@
     nmap
     tcpdump
     unzip
+    impala
     awww
     kitty
     zoxide

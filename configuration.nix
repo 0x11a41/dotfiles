@@ -301,6 +301,7 @@
     libinput
     slurp
     glib
+    gnome-tweaks
     zlib
     gzip
     nmap
@@ -355,6 +356,9 @@
     gsettings-desktop-schemas
     xdg-desktop-portal-hyprland
   ];
+
+  services.desktopManager.plasma6.enable = true;
+  services.desktopManager.cosmic.enable = true;
 
   programs.hyprland = {
     enable = true;

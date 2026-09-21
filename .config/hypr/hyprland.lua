@@ -352,8 +352,8 @@ hl.workspace_rule({workspace = "1", layout = "scrolling"})
 -- smart gaps
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })
 hl.workspace_rule({ workspace = "f[1]s[false]", gaps_out = 0, gaps_in = 0 })
-hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, border_size = 0 })
-hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, rounding = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, border_size = 0 })
+-- hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, rounding = 0 })
 hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, border_size = 0 })
 hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, rounding = 0 })
 
@@ -372,7 +372,7 @@ local SPEED_FAC = 0.8
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
 hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}    } })
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
-hl.curve("snappySpring",   { type = "spring", mass = 1, stiffness = 1000, dampening = 46 })
+hl.curve("snappySpring",   { type = "spring", mass = 1, stiffness = 1100, dampening = 48 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 3.0 * SPEED_FAC,    bezier = "quick" })
 

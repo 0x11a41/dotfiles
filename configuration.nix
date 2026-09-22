@@ -176,11 +176,13 @@
       zen-browser
       drawio
       vscodium
+      texliveFull
       google-chrome
       vlc
       showtime # video player
       nautilus
       nautilus-open-any-terminal
+      calcurse
     ];
   };
 
@@ -357,7 +359,6 @@
     xdg-desktop-portal-hyprland
   ];
 
-  services.desktopManager.plasma6.enable = true;
   services.desktopManager.cosmic.enable = true;
 
   programs.hyprland = {

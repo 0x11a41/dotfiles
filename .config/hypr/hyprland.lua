@@ -128,12 +128,12 @@ hl.config({
     },
 
     decoration = {
-        rounding         = 8,
+        rounding         = 6,
         active_opacity   = 1.0,
         inactive_opacity = 0.92,
         -- screen_shader = "crt.frag",
         shadow = { enabled = false },
-        blur = { enabled = false, size = 8, passes = 2},
+        blur = { enabled = true, size = 8, passes = 2},
     },
 
     animations = { enabled = true },

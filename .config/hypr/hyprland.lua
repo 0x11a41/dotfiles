@@ -27,31 +27,6 @@ local toggle_edp1_resolution = function()
     end
 end
 
----@param path string path to directory containing wallpapers
----@return string file name of randomly selected wallpaper from specified directory
-local function getrandom_wallp(path)
-    path = path:gsub("~", tostring(os.getenv("HOME")))
-    local handle = io.popen("ls " .. path .." | grep -E '\\.(png|jpg|webp|gif)$'")
-    if not handle then
-        hl.notification.create({ text = "ERROR: wallpaper directory - " .. path .. "  was not found.", timeout = 3000 })
-        return ""
-    end
-
-    local files = {}
-    for file in handle:lines() do
-        table.insert(files, file)
-    end
-    handle:close()
-
-    if #files <= 0 then
-        hl.notification.create({ text = "ERROR: wallpaper list appear empty. ", timeout = 3000 })
-        return ""
-    end
-
-    local RANDOM_WALLP = math.random(1, #files)
-    return path .. "/" .. files[RANDOM_WALLP]
-end
-
 ---handles zooming in and out
 ---@param fac number multiplicative factor to zoom
 local function zoom(fac)
@@ -97,7 +72,7 @@ hl.monitor({
 -------------------
 hl.on("hyprland.start", function()
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("sleep 1 && awww img " .. getrandom_wallp("~/Pictures/walls"))
+    hl.exec_cmd("sleep 1 && awww img \"$(find ~/Pictures/walls -type f | shuf -n 1)\"")
     hl.exec_cmd("hyprsunset")
     hl.exec_cmd("swayidle")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")

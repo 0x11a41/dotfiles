@@ -295,9 +295,7 @@
     upower
     fastfetch
     power-profiles-daemon
-    networkmanagerapplet
     cliphist
-    blueman
     wf-recorder
     libnotify
     libinput

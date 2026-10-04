@@ -175,6 +175,7 @@
       pureref
       zen-browser
       drawio
+      obs-studio
       vscodium
       texliveFull
       google-chrome
@@ -357,7 +358,7 @@
     xdg-desktop-portal-hyprland
   ];
 
-  services.desktopManager.cosmic.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   programs.hyprland = {
     enable = true;

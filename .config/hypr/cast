@@ -4,7 +4,7 @@
 # WF-RECORDER CONFIGURATION
 # =============================================================================
 # 1. Output Format & Saving
-set OUTPUT_FORMAT gif # Extension: mp4, mkv, webm, or gif
+set OUTPUT_FORMAT mp4 # Extension: mp4, mkv, webm, or gif
 set OVERWRITE_FILE -y # "-y" to force overwrite without prompting, or "" to disable
 
 # 2. Audio Settings
@@ -16,7 +16,7 @@ set AUDIO_CODEC "" # e.g., "-C aac". Leave empty for default.
 
 # 3. Video & Performance Tweaks
 set CODEC "" # e.g., "-c libx264" or "-c gif". Leave empty for default.
-set FRAMERATE "" # e.g., "-r 60" for a locked 60 FPS, or "" for variable
+set FRAMERATE "-r 60" # e.g., "-r 60" for a locked 60 FPS, or "" for variable
 set MAX_BFRAMES "" # e.g., "-b 0" if your hardware doesn't support b-frames
 
 # 4. Advanced Performance Optimizations

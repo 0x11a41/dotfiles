@@ -134,7 +134,7 @@ clock_format = "%a %d %b %R"
 
 [appearance]
 font_name = "Adwaita Sans"
-opacity = 0.80
+opacity = 0.75
 blur = "auto"
 scale_factor = 1.0
 primary_color = "#DAC6FA"

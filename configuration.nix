@@ -184,6 +184,7 @@
       nautilus
       nautilus-open-any-terminal
       calcurse
+      gnome-extension-manager
     ];
   };
 
@@ -224,13 +225,15 @@
   nix.settings.auto-optimise-store = true;
 
   services.avahi = {
-    enable = true;
+    enable = false;
     nssmdns4 = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-      userServices = true;
+    settings = {
+      publish = {
+        disable-publishing = false;
+        publish-addresses = true;
+        publish-workstation = true;
+        disable-user-service-publishing = false;
+      };
     };
   };
 
@@ -322,7 +325,6 @@
     direnv
     net-tools
     yazi
-    presenterm
     vscode-css-languageserver
     superhtml
     vscode-json-languageserver

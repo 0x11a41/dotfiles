@@ -2,7 +2,7 @@
   description = "flakes yay!";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-26.05";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     nixpkgs-pureref.url = "github:NixOS/nixpkgs/nixos-25.11";
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";

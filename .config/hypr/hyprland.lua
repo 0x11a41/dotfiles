@@ -115,7 +115,7 @@ hl.config({
         inactive_opacity = 0.92,
         -- screen_shader = "crt.frag",
         shadow = { enabled = false },
-        blur = { enabled = true, size = 8, passes = 2},
+        blur = { enabled = true },
     },
 
     animations = { enabled = true },
@@ -182,7 +182,7 @@ hl.bind("SUPER + T", hl.dsp.exec_cmd("kitty"))
 hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
 hl.bind("F2", hl.dsp.exec_cmd("ashell msg toggle-visibility"), { long_press = true})
 hl.bind("SUPER + C", hl.dsp.exec_cmd("pkill -x fuzzel || cliphist list | fuzzel  -w 48 --dmenu --mesg='Clipboard history' | cliphist decode | wl-copy"))
-hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --placeholder=" Launch using integrated graphics"'))
+hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --placeholder=" Launch using integrated graphics"'), { release = true })
 hl.bind("SUPER + D", hl.dsp.exec_cmd('pkill fuzzel || fuzzel --launch-prefix="nvidia-offload" --placeholder=" Launch using discrete graphics"'))
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
 hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("pkill fuzzel || ~/.config/hypr/emoji-picker.sh"))

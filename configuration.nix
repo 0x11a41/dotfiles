@@ -161,29 +161,24 @@
       loupe # image viewer
       baobab # disk usage analyzer
       papers # document viewer
-      gnome-calculator
       telegram-desktop
       gimp
       obsidian
       resources
       rnote
       pixelorama
-      krita
-      kdePackages.kdenlive
       arduino-ide
       libreoffice
       pureref
       zen-browser
-      drawio
       obs-studio
+      drawio
       vscodium
-      texliveFull
       google-chrome
       vlc
       showtime # video player
       nautilus
       nautilus-open-any-terminal
-      calcurse
       gnome-extension-manager
     ];
   };
@@ -284,13 +279,11 @@
     pastel
     nixd
     nixdoc
-    fuzzel
     ashell
+    noctalia
     upower
     fastfetch
     power-profiles-daemon
-    cliphist
-    wf-recorder
     libnotify
     libinput
     slurp
@@ -298,11 +291,11 @@
     gnome-tweaks
     zlib
     gzip
+    nwg-displays
     nmap
     tcpdump
     unzip
     impala
-    awww
     kitty
     zoxide
     fzf
@@ -338,19 +331,12 @@
     fish-lsp
     libwacom
     hyprls
-    hyprsunset
-    hyprpolkitagent
-    hyprlock
-    hyprshot
-    swayidle
     rose-pine-hyprcursor
     hyprpicker
     pavucontrol
     gsettings-desktop-schemas
     xdg-desktop-portal-hyprland
   ];
-
-  services.desktopManager.gnome.enable = true;
 
   programs.hyprland = {
     enable = true;
@@ -363,11 +349,10 @@
 
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
+  services.gnome.gnome-keyring.enable = true;
   services.gnome.tinysparql.enable = true;
   services.gnome.localsearch.enable = true;
  
-  security.pam.services.hyprlock = {};
-
   programs.dconf.enable = true;
   programs.dconf.profiles.user.databases = [
     {

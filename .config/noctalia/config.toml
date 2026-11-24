@@ -236,7 +236,7 @@ source = "builtin"
 wallpaper_scheme = "soft"
 
     [theme.templates]
-    builtin_ids = [ "alacritty", "btop", "gtk3", "gtk4", "helix", "hyprland", "kitty", "qt" ]
+    builtin_ids = [ "btop", "hyprland" ]
 
 [wallpaper]
 directory = "/home/hk/Pictures/walls"

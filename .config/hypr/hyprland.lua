@@ -111,6 +111,7 @@ hl.bind("SUPER + T", hl.dsp.exec_cmd(TERMINAL))
 hl.bind("SUPER + B", hl.dsp.exec_cmd(WEB_BROWSER))
 hl.bind("F2", hl.dsp.exec_cmd("noctalia msg bar-toggle"), { long_press = true })
 hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
+hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("noctalia msg settings-toggle"))
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"), { release = true })
 hl.bind("SUPER + PERIOD", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher /emo"))
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
@@ -150,10 +151,6 @@ hl.bind("SUPER + SHIFT + TAB", hl.dsp.focus({ direction = "left" }),  { repeatin
 -- MONITOR
 hl.bind("SUPER + right", hl.dsp.focus({monitor = "r"}))
 hl.bind("SUPER + left", hl.dsp.focus({monitor = "l"}))
-hl.bind("SUPER + RETURN", function()
-    hl.notification.create({text = "Current resolution: "..edp1.res.."::"..edp1.scale, timeout = 3000})
-    hl.dispatch(toggle_edp1_resolution)
-end)
 
 -- WORKSPACES
 for i = 1, 10 do

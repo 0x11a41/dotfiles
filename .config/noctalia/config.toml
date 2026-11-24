@@ -6,6 +6,7 @@ sound_volume = 0.9499999787658453
 order = [ "main" ]
 
     [bar.main]
+    background_opacity = 0.91999997943639755
     center = [ "control-center", "clock", "privacy" ]
     end = [
         "network_tx",
@@ -26,7 +27,7 @@ order = [ "main" ]
     shadow = false
     start = [ "launcher", "workspaces", "media" ]
     thickness = 32
-    widget_spacing = 12
+    widget_spacing = 16
 
         [bar.main.dead_zone.actions]
         right = "none"
@@ -98,7 +99,7 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
 auto_locate = true
 
 [lockscreen]
-blur_intensity = 0.68999998457729816
+blur_intensity = 0.4999999888241291
 tint_intensity = 0.15999999642372131
 transition = [ "fade", "zoom" ]
 transition_duration = 300
@@ -190,9 +191,10 @@ lang = "en"
 password_style = "random"
 polkit_agent = true
 screen_time_enabled = true
+settings_window_translucent = true
 
     [shell.animation]
-    speed = 1.3500000201165676
+    speed = 1.5000000223517418
 
     [shell.launcher]
     show_app_actions = true

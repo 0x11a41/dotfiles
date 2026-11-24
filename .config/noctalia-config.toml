@@ -6,7 +6,6 @@ sound_volume = 0.9499999787658453
 order = [ "main" ]
 
     [bar.main]
-    background_opacity = 0.51999998837709427
     center = [ "control-center", "clock", "privacy" ]
     end = [
         "network_tx",
@@ -55,7 +54,6 @@ width = 750
     type = "notification"
 
 [desktop_widgets]
-enabled = false
 schema_version = 2
 widget_order = []
 
@@ -117,8 +115,8 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 810.0
-    cx = 789.0
-    cy = 704.0
+    cx = 788.9998779296875
+    cy = 703.99993896484375
     output = "eDP-1"
     placement_height = 864.0
     placement_width = 1536.0
@@ -147,7 +145,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     box_height = 0.0
     box_width = 0.0
     cx = 768.0
-    cy = 496.0
+    cy = 495.99993896484375
     output = "eDP-1"
     placement_height = 864.0
     placement_width = 1536.0
@@ -164,7 +162,7 @@ temperature_day = 6600
 temperature_night = 5400
 
 [notification]
-background_opacity = 0.92999997921288013
+background_opacity = 0.79999998211860657
 scale = 0.85000000521540642
 
 [osd]
@@ -175,6 +173,7 @@ position = "bottom_center"
 scale = 0.90000000596046448
 
 [shell]
+avatar_path = "/home/hk/Pictures/Camera/me.png"
 button_borders = false
 card_borders = false
 clipboard_history_max_entries = 200
@@ -185,7 +184,7 @@ polkit_agent = true
 screen_time_enabled = true
 
     [shell.animation]
-    speed = 1.2000000178813934
+    speed = 1.3500000201165676
 
     [shell.launcher]
     show_app_actions = true
@@ -196,14 +195,12 @@ screen_time_enabled = true
 
     [shell.panel]
     borders = false
-    clipboard_position = "auto"
     control_center_placement = "floating"
     floating_layer = "top"
     open_near_click_clipboard = true
     open_near_click_control_center = true
     open_near_click_session = true
     session_placement = "floating"
-    transparency_mode = "soft"
     wallpaper_placement = "floating"
     wallpaper_position = "center"
     wallpaper_show_names = false
@@ -226,7 +223,6 @@ builtin = "Catppuccin"
 community_palette = "Catppuccin Frappe Mauve"
 custom_palette = "01-catppuccin-mocha-mc"
 mode = "light"
-pure_black_dark = true
 shell_mode = "dark"
 source = "builtin"
 wallpaper_scheme = "soft"
@@ -241,13 +237,13 @@ transition = [ "fade" ]
 transition_duration = 1900
 
     [wallpaper.default]
-    path = "/home/hk/Pictures/walls/2.jpg"
+    path = "/home/hk/Pictures/walls/496104.png"
 
     [wallpaper.last]
-    path = "/home/hk/Pictures/walls/2.jpg"
+    path = "/home/hk/Pictures/walls/496104.png"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/hk/Pictures/walls/2.jpg"
+    path = "/home/hk/Pictures/walls/496104.png"
 
 [widget.battery]
 display_mode = "graphic"

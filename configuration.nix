@@ -238,7 +238,7 @@
   };
 
   services.openssh = {
-    enable = true;
+    enable = false;
     settings = {
       PasswordAuthentication = false; 
       PermitRootLogin = "no";
@@ -369,6 +369,7 @@
   ];
 
   services.gvfs.enable = true;
+  security.polkit.enable = true;
 
   xdg.portal = {
     enable = true;

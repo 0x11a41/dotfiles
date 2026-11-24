@@ -1,3 +1,7 @@
+local TERMINAL = "kitty"
+local WEB_BROWSER = "zen"
+local FILE_MANAGER = "nautilus"
+
 -------------------
 ---- AUTOSTART ----
 -------------------
@@ -103,8 +107,8 @@ hl.device({
 ---- KEYBINDINGS ----
 ---------------------
 -- SPAWNERS
-hl.bind("SUPER + T", hl.dsp.exec_cmd("kitty"))
-hl.bind("SUPER + B", hl.dsp.exec_cmd("zen"))
+hl.bind("SUPER + T", hl.dsp.exec_cmd(TERMINAL))
+hl.bind("SUPER + B", hl.dsp.exec_cmd(WEB_BROWSER))
 hl.bind("F2", hl.dsp.exec_cmd("noctalia msg bar-toggle"), { long_press = true })
 hl.bind("SUPER + C", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 hl.bind("SUPER + SUPER_L", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"), { release = true })
@@ -117,8 +121,7 @@ hl.bind("SUPER + A", hl.dsp.exec_cmd("noctalia msg screenshot-annotate"))
 -- screen recording
 hl.bind("SUPER + F10", hl.dsp.exec_raw("~/.config/hypr/cast stop"))
 hl.bind("XF86Search", hl.dsp.exec_raw("~/.config/hypr/search-word.sh"))
-hl.bind("XF86Calculator", hl.dsp.exec_cmd("gnome-calculator"))
-hl.bind("XF86HomePage", hl.dsp.exec_cmd("nautilus"))
+hl.bind("XF86HomePage", hl.dsp.exec_cmd(FILE_MANAGER))
 hl.bind("XF86Tools", hl.dsp.exec_cmd("xdg-open https://music.youtube.com"))
 hl.bind("XF86Mail", hl.dsp.exec_cmd("xdg-open https://mail.google.com"))
 
@@ -242,7 +245,7 @@ hl.bind("SUPER + Z", function() zoom(0.5) end,  { repeating = true })
 hl.bind("SUPER + X", function() zoom(-0.5) end, { repeating = true })
 
 -- GLOBAL BINDINGS --
--- hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
+hl.bind("SUPER + F10", hl.dsp.pass({ window = "class:^(com\\.obsproject\\.Studio)$" }))
 
 
 --------------------------------------

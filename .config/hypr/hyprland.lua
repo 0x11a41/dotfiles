@@ -7,6 +7,7 @@ local FILE_MANAGER = "nautilus"
 -------------------
 hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- noctalia")
+    hl.exec_cmd("sleep 2 && noctalia msg wallpaper-random")
 end)
 
 -------------------------------

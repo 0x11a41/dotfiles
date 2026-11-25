@@ -176,7 +176,7 @@
       vscodium
       google-chrome
       vlc
-      showtime # video player
+      mpv
       nautilus
       nautilus-open-any-terminal
       gnome-extension-manager

@@ -8,18 +8,7 @@ order = [ "main" ]
     [bar.main]
     background_opacity = 0.91999997943639755
     center = [ "control-center", "clock", "privacy" ]
-    end = [
-        "network_tx",
-        "network_rx",
-        "tray",
-        "brightness",
-        "battery",
-        "bluetooth",
-        "network",
-        "volume",
-        "session",
-        "notifications"
-    ]
+    end = [ "tray", "brightness", "bluetooth", "network", "volume", "battery", "session", "notifications" ]
     font_family = "Adwaita Sans"
     margin_ends = 0
     padding = 12
@@ -27,7 +16,7 @@ order = [ "main" ]
     shadow = false
     start = [ "launcher", "workspaces", "media" ]
     thickness = 32
-    widget_spacing = 16
+    widget_spacing = 14
 
         [bar.main.dead_zone.actions]
         right = "none"
@@ -57,14 +46,29 @@ width = 750
 
 [desktop_widgets]
 schema_version = 2
-widget_order = []
+widget_order = [ "desktop-widget-0000000000000003" ]
 
     [desktop_widgets.grid]
-    cell_size = 16
+    cell_size = 8
     major_interval = 4
     visible = true
 
-    [desktop_widgets.widget]
+    [desktop_widgets.widget.desktop-widget-0000000000000003]
+    box_height = 16.0
+    box_width = 160.0
+    cx = 768.0
+    cy = 840.0
+    output = "eDP-1"
+    placement_height = 864.0
+    placement_width = 1536.0
+    rotation = 0.0
+    type = "label"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
+        background = false
+        font_family = "Maple Mono NF"
+        opacity = 0.64000000000000001
+        title = "it's right now!"
 
 [dock]
 smart_auto_hide = true
@@ -118,7 +122,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     box_height = 196.0
     box_width = 810.0
     cx = 788.99981689453125
-    cy = 703.9998779296875
+    cy = 703.99993896484375
     output = "eDP-1"
     placement_height = 864.0
     placement_width = 1536.0
@@ -147,7 +151,7 @@ widget_order = [ "lockscreen-login-box@eDP-1", "lockscreen-widget-00000000000000
     box_height = 0.0
     box_width = 0.0
     cx = 768.0
-    cy = 495.9998779296875
+    cy = 495.99990844726562
     output = "eDP-1"
     placement_height = 864.0
     placement_width = 1536.0
@@ -191,7 +195,7 @@ lang = "en"
 password_style = "random"
 polkit_agent = true
 screen_time_enabled = true
-settings_window_translucent = true
+settings_window_translucent = false
 
     [shell.animation]
     speed = 1.5000000223517418
@@ -216,7 +220,7 @@ settings_window_translucent = true
     wallpaper_show_names = false
 
     [shell.screen_corners]
-    size = 26
+    size = 1
 
     [shell.screenshot]
     confirm_region = true
@@ -232,9 +236,10 @@ settings_window_translucent = true
 builtin = "Catppuccin"
 community_palette = "Catppuccin Frappe Mauve"
 custom_palette = "01-catppuccin-mocha-mc"
-mode = "light"
+mode = "dark"
 shell_mode = "dark"
-source = "builtin"
+source = "wallpaper"
+terminal_colors = "standard"
 wallpaper_scheme = "soft"
 
     [theme.templates]
@@ -243,16 +248,16 @@ wallpaper_scheme = "soft"
 [wallpaper]
 directory = "/home/hk/Pictures/walls"
 transition = [ "fade" ]
-transition_duration = 1900
+transition_duration = 2600
 
     [wallpaper.default]
-    path = "/home/hk/Pictures/walls/13. Catppuccin Mocha.png"
+    path = "/home/hk/Pictures/walls/02. Abyssal Wave.png"
 
     [wallpaper.last]
-    path = "/home/hk/Pictures/walls/13. Catppuccin Mocha.png"
+    path = "/home/hk/Pictures/walls/02. Abyssal Wave.png"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/hk/Pictures/walls/13. Catppuccin Mocha.png"
+    path = "/home/hk/Pictures/walls/02. Abyssal Wave.png"
 
 [widget.battery]
 display_mode = "graphic"
@@ -271,7 +276,7 @@ glyph = "home"
 scale = 0.90000000000000013
 
 [widget.launcher]
-glyph = "brand-open-source"
+glyph = "brand-open-source-filled"
 
 [widget.media]
 hide_when_no_media = true

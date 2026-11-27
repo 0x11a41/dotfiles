@@ -1,6 +1,6 @@
 local TERMINAL = "kitty"
 local WEB_BROWSER = "zen"
-local FILE_MANAGER = "nautilus"
+local FILE_MANAGER = "cosmic-files"
 
 -------------------
 ---- AUTOSTART ----
@@ -13,8 +13,10 @@ end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
-hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+hl.env("HYPRCURSOR_THEME", "Adwaita")
 hl.env("HYPRCURSOR_SIZE", 24)
+hl.env("XCURSOR_THEME", "Adwaita")
+hl.env("XCURSOR_SIZE", 24)
 
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")

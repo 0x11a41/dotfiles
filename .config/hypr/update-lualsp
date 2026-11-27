@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+set PKG (ls /nix/store/ | grep -E '^[a-z0-9]{32}-hyprland-[0-9.]*$' | sort -t '-' -k3,3V | tail -n 1)
+
+if test -z $PKG
+    echo "Hyprland package not found in /nix/store" >&2
+    exit 1
+end
+
+printf '{\n  "workspace": {\n    "library": [\n      "/nix/store/%s/share/hypr/stubs"\n    ]\n  }\n}' "$PKG" >.luarc.json

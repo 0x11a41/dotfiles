@@ -7,3 +7,4 @@ zoxide init fish | source
 
 alias trash="gio trash"
 alias gedit="gnome-text-editor"
+alias ta="tmux attach"

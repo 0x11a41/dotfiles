@@ -7,19 +7,25 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # disabling laptop keyboard and touchpad
+  # Options below focus on disabling laptop keyboard and touchpad since mine is damaged
+# XIAOMI ==>
+  # Prevent the Linux kernel from loading drivers for internal input hardware and hotkeys
   boot.blacklistedKernelModules = [ 
-    "atkbd"
-    "i2c_hid_acpi" 
-    "i2c_hid" 
-    "hid_multitouch" 
-    "redmi-wmi"
+    "atkbd" # for laptop keyboard
+    "i2c_hid_acpi" # touchpads
+    "i2c_hid" # HID devices over the I2C bus
+    "hid_multitouch" # multi touch gesture and finger tracking driver
+    "redmi-wmi" # Redmi WMI driver for laptop-specific function keys
   ];
+
+  # Pass low-level power and PS/2 controller flags to the kernel at boot
   boot.kernelParams = [ 
-    "mem_sleep_default=deep" 
-    "i8042.reset=1" 
-    "i8042.nosmart=1" 
+    "mem_sleep_default=deep" # Force S3 deep sleep
+    "i8042.reset=1" # reset i8042 PS/2 controller during boot/resume
+    "i8042.nosmart=1" # # Disable PS/2 active multiplexing to prevent phantom inputs
   ];
+
+  # Tell libinput to ignore these devices in userspace (fallback)
   services.udev.extraRules = ''
     # Ignore the broken ELAN Touchpad/Mouse interface
     SUBSYSTEM=="input", ATTRS{id}=="i2c:04f3:3122", ENV{LIBINPUT_IGNORE_DEVICE}="1"
@@ -27,6 +33,7 @@
     # Optional fail-safe: Ensure the internal keyboard matrix can't circumvent sleep
     SUBSYSTEM=="input", ATTRS{name}=="AT Translated Set 2 keyboard", ENV{LIBINPUT_IGNORE_DEVICE}="1"
   '';
+# XIAOMI <==
 
   services.logind.settings.Login = {
     HandlePowerKey = "hibernate";
@@ -54,7 +61,7 @@
     ];
   };
 
-  ## f*** nvidia things
+  ## NVIDIA things for MX350 🤑
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
     modesetting.enable = true;
@@ -74,7 +81,10 @@
   services.printing.enable = true;
   services.libinput.enable = true;
 
+  # Enable the RealtimeKit (rtkit) system service so user-space apps
+  # can safely request real-time CPU scheduling priority without needing root privileges
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -98,15 +108,9 @@
     };
   };
 
-  programs.fish = {
-    enable = true;
-    generateCompletions = true;
-    shellAbbrs = {
-      ta = "tmux a";
-    };
-  };
+  programs.fish.enable = true;
 
-  programs.command-not-found.enable = false;
+  # programs.command-not-found.enable = false;
 
   programs.git = {
     enable = true;
@@ -167,7 +171,6 @@
       resources
       rnote
       pixelorama
-      arduino-ide
       libreoffice
       pureref
       zen-browser
@@ -177,17 +180,8 @@
       google-chrome
       vlc
       mpv
-      nautilus
-      nautilus-open-any-terminal
-      gnome-extension-manager
+      cosmic-files
     ];
-  };
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
   programs.localsend = {
@@ -208,9 +202,6 @@
     font-awesome
   ];
 
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # garbage collection
   nix.gc = {
     automatic = true;    
@@ -219,6 +210,7 @@
   };
   nix.settings.auto-optimise-store = true;
 
+  # ZeroConf
   services.avahi = {
     enable = false;
     nssmdns4 = true;
@@ -263,13 +255,13 @@
 
   environment.systemPackages = with pkgs; [
     (makeDesktopItem {
-      name = "photos";
-      desktopName = "Photos";
-      genericName = "Photo Backup";
+      name = "immich";
+      desktopName = "Immich";
+      genericName = "Memories";
       comment = "Self-hosted photo and video backup solution";
       exec = "${pkgs.xdg-utils}/bin/xdg-open http://nixos:2283";
-      icon = "zen";
-      categories = [ "Network" "WebBrowser" ];
+      icon = "folder-pictures";
+      categories = [ "Photography" "Graphics" ];
     })
     helix
     wl-clipboard
@@ -286,19 +278,16 @@
     power-profiles-daemon
     libnotify
     libinput
-    slurp
     glib
-    gnome-tweaks
     zlib
     gzip
-    nwg-displays
-    nmap
-    tcpdump
     unzip
+    nmap
+    nwg-displays
+    tcpdump
     impala
     kitty
     zoxide
-    fzf
     tree
     btop
     tldr
@@ -312,14 +301,9 @@
     superhtml
     vscode-json-languageserver
     typescript
-    typescript-language-server
-    python313
-    ty
-    ruff
     lua
     lua-language-server
     clang
-    gcc
     gdb
     clang-tools
     lldb
@@ -331,7 +315,6 @@
     fish-lsp
     libwacom
     hyprls
-    rose-pine-hyprcursor
     hyprpicker
     pavucontrol
     gsettings-desktop-schemas
@@ -344,29 +327,21 @@
   };
 
   # display manager
-  services.displayManager.gdm.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      save = true;
+      load = true;
+    };
+  };
   services.displayManager.defaultSession = "hyprland-uwsm";
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.ly.enableGnomeKeyring = true;
 
   services.upower.enable = true;
   services.power-profiles-daemon.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  services.gnome.tinysparql.enable = true;
-  services.gnome.localsearch.enable = true;
- 
+
   programs.dconf.enable = true;
-  programs.dconf.profiles.user.databases = [
-    {
-      settings = {
-        "org/gnome/desktop/interface" = {
-          gtk-theme = "Adwaita";
-          icon-theme = "Adwaita";
-          font-name = "Adwaita Sans Regular 12";
-          document-font-name = "Adwaita Sans Regular 12";
-          monospace-font-name = "Maple Mono NL Medium 12";
-        };
-      };
-    }
-  ];
 
   services.gvfs.enable = true;
   security.polkit.enable = true;
@@ -388,6 +363,8 @@
     VISUAL = "hx";
   };
 
+  nixpkgs.config.allowUnfree = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # don't change this
   system.stateVersion = "25.05";
 }
